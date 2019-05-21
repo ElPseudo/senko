@@ -1,17 +1,16 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
-
-client.login(process.env.TOKEN);
+var bot = new Discord.Client();
+bot.login(process.env.TOKEN);
 var prefix = ("!");
 
-client.on("guildMemberAdd", member =>{
+bot.on("guildMemberAdd", member => {
 
     const channel = member.guild.channels.find("name", "home-🏛");
     if(!channel) return;
     channel.send(`Bienvenue **${member}**, sur **${member.guild.name}**, veuillez lire les règles https://thumbs.gfycat.com/GrimMealyBuckeyebutterfly-size_restricted.gif`)
 })
 
-Client.on('message', message => {
+bot.on('message', message => {
 
     if (message.content.startsWith(prefix + "sondage")) {
         let args = message.content.split(" ").slice(1);
@@ -28,7 +27,7 @@ Client.on('message', message => {
         }).catch(function() {
         });
         }else{
-            return message.reply("Tu n'as pas la permission.")
+            return 
         }
     }
-})
+);
