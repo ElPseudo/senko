@@ -1,10 +1,62 @@
-const Discord = require('discord.js');
+const Client = require('discord.js');
 var bot = new Discord.Client();
 
+var prefix = ("!");
+const ytdl = require('ytdl-core');
 const fs = require(`fs`);
 
+const client = new Client({ disableEveryone: true });
+
+client.on('warn', console.warn);
+
+client.on('error', console.error);
+
+client.on('ready', () => console.log(`Yo c'est parti!`));
+
+client.on('disconnect', () => console.log(`Je viens de déconnecter, faire en sorte que vous sachiez, je vais me reconnecter maintenant...`));
+
+client.on('reconnecting', () => console.log(`Je me reconnecte maintenant!`));
+
+client.on('message', async msg => {
+    if (msg.author.bot) return undefined;
+    if (!msg.content.startsWith(PREFIX)) return undefined;
+    const args = msg.content.split(' ');
+
+    if (msg.content.startsWith(`${PREFIX}play`)) {
+        const voiceChannel = msg.member.voiceChannel;
+        if (!voiceChannel) return msg.channel.send('Je suis désolé mais vous devez être dans un canal vocal pour jouer de la musique!');
+        const permissions = voiceChannel.permissionsFor(msg.client.user);
+        if (!permissions.has('CONNECT')) {
+            return msg.channel.send(`Je ne peux pas me connecter à votre canal vocal, assurez-vous que j'ai les autorisations appropriées!`);
+        }
+        if (!permissions.has('SPEAK')) {
+            return msg.channel.send(`Je ne peux pas parler dans ce canal vocal, assurez-vous que j'ai les autorisations appropriées!`);
+        }
+
+        try {
+            var connection = await voiceChannel.join();
+        } catch (error) {
+            console.error(`Je ne peux pas rejoindre le canal vocal: ${error}`);
+            return msg.channel.send(`Je ne peux pas rejoindre le canal vocal: ${error}`);
+        }
+
+        const dispatcher = connection.playStream(ytdl(args[1]))
+            .on('end', () => {
+                console.log('chanson terminée!');
+                voiceChannel.leave();
+            })
+            .on('error', error => {
+                console.error(error);
+            });
+        dispatcher.setVolumeLogarithmic(5 / 5);
+    } else if (msg.content.startsWith(`${PREFIX}stop`)) {
+        if (!msg.member.voiceChannel) return msg.channel.send(`vous n'êtes pas dans un canal vocal!`);
+        msg.member.voiceChannel.leave();
+        return undefined;
+    }
+});
+
 bot.login(process.env.TOKEN);
-var prefix = ("!");
 
 bot.on("guildMemberAdd", member => {
 
