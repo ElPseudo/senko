@@ -44,7 +44,7 @@ Veuillez fournir une valeur pour sélectionner l'un des résultats de la recherc
                             maxMatches: 1,
                             time: 10000,
                             errors: ['time']
-                        });
+                        })
                     } catch (err) {
                         console.error(err);
                         return msg.channel.send('Aucune valeur ou valeur invalide entrée, annulant la sélection de vidéo.');
