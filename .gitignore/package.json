@@ -1,24 +1,29 @@
 {
-  "name": "senko",
-  "version": "0.0.1",
-  "description": "fun",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Shine",
-  "license": "ISC",
-  "dependencies": {
-    "discord.js": "^11.5.0",
-    "ffmpeg": "0.0.4",
-    "ffmpeg-binaries": "^4.0.0",
-    "long": "^4.0.0",
-    "opusscript": "0.0.6",
-    "prism-media": "^0.0.3",
-    "simple-youtube-api": "^5.1.1",
-    "snekfetch": "^3.6.4",
-    "tweetnacl": "^1.0.0",
-    "ws": "^6.0.0",
-    "ytdl-core": "^0.29.2"
-  }
+	"name": "senko",
+	"version": "0.1.0",
+	"description": "",
+	"main": "src/index.js",
+	"author": "Shine",
+	"license": "MIT",
+	"private": true,
+	"scripts": {},
+	"dependencies": {
+		"discord.js": "^11.4.2",
+		"dotenv": "^6.2.0",
+		"opusscript": "^0.0.6",
+		"ytdl-core-discord": "amishshah/ytdl-core-discord"
+	},
+	"devDependencies": {
+		"eslint": "^5.14.0",
+		"eslint-config-aqua": "^4.4.1"
+	},
+	"optionalDependencies": {
+		"@discordjs/uws": "^11.149.1",
+		"erlpack": "discordapp/erlpack",
+		"node-opus": "^0.3.1",
+		"zlib-sync": "^0.1.4"
+	},
+	"eslintConfig": {
+		"extends": "aqua/node"
+	}
 }
