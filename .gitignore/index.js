@@ -19,7 +19,7 @@ client.on('disconnect', () => console.log(`Je viens de déconnecter, faire en so
 
 client.on('reconnecting', () => console.log(`Je me reconnecte maintenant!`));
 
-client.on('message', async msg => { //eslint-disable-line
+client.on('message', async msg => {
     if (msg.author.bot) return undefined;
     if (!msg.content.startsWith(PREFIX)) return undefined;
     const args = msg.content.split(' ');
@@ -42,8 +42,8 @@ client.on('message', async msg => { //eslint-disable-line
             const playlist =  await youtube.getPlaylist(url);
             const videos = await playlist.getVideos();
             for (const video of Object.values(videos)) {
-                const video2 = await youtube.getVideoByID(video.id); // eslint-disable-line no-await-in-loop
-                await handleVideo(video2, msg, voiceChannel, true); // eslint-disable-line no-await-in-loop
+                const video2 = await youtube.getVideoByID(video.id); 
+                await handleVideo(video2, msg, voiceChannel, true); 
             }
             return msg.channel.send(`Playlist: **${playlist.title}** a été ajouté à la file d'attente!`);
         } else {
@@ -60,7 +60,6 @@ ${videos.map(video2 => `**${++index} -** ${video2.title}`).join(`\n`)}
 
 Veuillez fournir une valeur pour sélectionner l'un des résultats de la recherche, allant de 1 à 10.
                     `);
-                    // eslint-disable-next-line max-depth
                     try {
                         var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, {
                             maxMatches: 1,
