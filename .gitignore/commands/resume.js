@@ -9,6 +9,6 @@ module.exports = {
 			serverQueue.connection.dispatcher.resume();
 			return message.channel.send('▶ A repris la musique pour vous!');
 		}
-		return message.channel.send('Il n'y a rien qui joue.');
+		return message.channel.send(`Il n'y a rien qui joue.`);
 	}
 };
